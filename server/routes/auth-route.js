@@ -3,7 +3,8 @@ const express = require("express");
 const router = express.Router();
 const authControllers = require("../controllers/auth-controller");
 const validate = require("../middlewares/validate-middleware");
-const signupSchema = require("../validators/auth-validator");
+const {signupSchema,loginSchema} = require("../validators/auth-validator");
+
 // router.get("/", (req, res) => {
 //   res.status(200).send("Welcome to thapa technical Mern Series Updated");
 // });
@@ -17,5 +18,6 @@ router.route("/").get(authControllers.home);
 router
   .route("/register")
   .post(validate(signupSchema), authControllers.register);
-router.route("/login").post(authControllers.login);
+//router.route("/login").post(authControllers.login);
+router.route('/login').post(validate(loginSchema),authControllers.login);
 module.exports = router;

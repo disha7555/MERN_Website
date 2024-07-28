@@ -5,14 +5,22 @@ const validate = (schema) => async (req, res, next) => {
       return next();
     } catch (err) {
    
-    const message=err.errors[0].message;
-    console.log(message);
-    res.status(400).json({msg:message});
+    const message="Fill the details properly"
+    const extraDetails=err.errors[0].message;
+    const status=422;
+    const error = {
+        status,
+        message,
+        extraDetails,
+      };
+  
+    console.log(error);
+    //res.status(400).json({msg:message});
+    next(error);
     }
   };
   
   module.exports = validate;
-   
 
 
   // await schema.parseAsync(req.body) is the line where you use Zod to validate the request body data against the defined schema.
